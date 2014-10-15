@@ -26,10 +26,10 @@
 	send: function(e,detail,sender) {
 	  // send the request
 	  // then transform the form
-	  $.heading.innerText = 'Password reset email sent';
-	  $.instruction.innerText = 'If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.';
-	  $.emailInput.style.height = '0px';
-	  $.resetPwButton.innerText = 'Resend email';
+	  this.$.heading.innerText = 'Password reset email sent';
+	  this.$.instruction.innerText = 'If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.';
+	  this.$['email-input'].style.height = '0px';
+	  this.$['reset-pw-button'].innerText = 'Resend email';
 	}
     });
 	
