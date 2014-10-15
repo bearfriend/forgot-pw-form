@@ -1,0 +1,35 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+
+<polymer-element name="forgot-pw-form" attributes="">
+  <template>
+    <link rel="stylesheet" href="forgot-pw-form.css">
+
+	<core-card id="core-card" vertical layout>
+	  <paper-shadow z="2"></paper-shadow>
+      <paper-input label="Email" willvalidate id="email-input" layout vertical></paper-input>
+	  <paper-button label="Reset password" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
+	  <div class="spacer"></div>
+	  <a href="/#sign-in" class="small-text link form-row">Back to <strong>Sign In</strong></a>
+    </core-card>
+	
+	
+  </template>
+  <script>
+    (function () {
+    'use strict';
+	
+    Polymer({
+	send: function(e,detail,sender) {
+	  // send the request
+	  // then transform the form
+	  $.emailInput.style.height = '0px';
+	  $.resetPwButton.innerText = 'Resend email';
+	}
+    });
+	
+    })();
+  </script>
+</polymer-element>
