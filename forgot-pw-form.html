@@ -8,14 +8,30 @@
     <link rel="stylesheet" href="forgot-pw-form.css">
 
 	<core-card class="sso-card" id="core-card" vertical layout>
-	  <paper-shadow z="2"></paper-shadow>
-	  <h1 id="heading">Forgot your password?</h1>
-	  <p id="instruction">Enter your email address below. You will receive an email with instructions on how to reset your password.</p>
-      <paper-input label="Email" willvalidate id="email-input" layout vertical></paper-input>
-	  <paper-button label="Reset password" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
+
+	  <template bind if="{{ !sent }}">
+		
+		  <paper-shadow z="2"></paper-shadow>
+		  <h1 id="heading">Forgot your password?</h1>
+		  <p id="instruction">Enter your email address below. You will receive an email with instructions on how to reset your password.</p>
+		  <paper-input label="Email" willvalidate id="email-input" layout vertical></paper-input>
+		  <paper-button label="Reset password" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
+		  <a href="/#sign-in" class="small-text link form-row" center-text>Back to <strong>Sign In</strong></a>
+		  
+	  </template>
+	  
+	  <template bind if="{{ sent }}">
+		
+		<paper-shadow z="2"></paper-shadow>
+		<h1 id="heading">Password reset email sent</h1>
+		<p id="instruction">If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.</p>
+		<paper-button label="Resend email" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
+		
+	  </template>
+	  
 	  <a href="/#sign-in" class="small-text link form-row" center-text>Back to <strong>Sign In</strong></a>
-    </core-card>
-	
+	  
+	</core-card>
 	
   </template>
   <script>
@@ -24,12 +40,7 @@
 	
     Polymer({
 	send: function(e,detail,sender) {
-	  // send the request
-	  // then transform the form
-	  this.$.heading.innerText = 'Password reset email sent';
-	  this.$.instruction.innerText = 'If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.';
-	  this.$['email-input'].style.height = '0px';
-	  this.$['reset-pw-button'].innerText = 'Resend email';
+	  this.sent = true;
 	}
     });
 	
