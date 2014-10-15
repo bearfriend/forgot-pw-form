@@ -7,12 +7,13 @@
   <template>
     <link rel="stylesheet" href="forgot-pw-form.css">
 
-	<core-card id="core-card" vertical layout>
+	<core-card class="sso-card" id="core-card" vertical layout>
 	  <paper-shadow z="2"></paper-shadow>
+	  <h1 id="heading">Forgot your password?</h1>
+	  <p id="instruction">Enter your email address below. You will receive an email with instructions on how to reset your password.</p>
       <paper-input label="Email" willvalidate id="email-input" layout vertical></paper-input>
 	  <paper-button label="Reset password" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
-	  <div class="spacer"></div>
-	  <a href="/#sign-in" class="small-text link form-row">Back to <strong>Sign In</strong></a>
+	  <a href="/#sign-in" class="small-text link form-row" center-text>Back to <strong>Sign In</strong></a>
     </core-card>
 	
 	
@@ -25,6 +26,8 @@
 	send: function(e,detail,sender) {
 	  // send the request
 	  // then transform the form
+	  $.heading.innerText = 'Password reset email sent';
+	  $.instruction.innerText = 'If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.';
 	  $.emailInput.style.height = '0px';
 	  $.resetPwButton.innerText = 'Resend email';
 	}
