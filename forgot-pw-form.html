@@ -2,6 +2,7 @@
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
 
 <polymer-element name="forgot-pw-form" attributes="">
   <template>
@@ -9,6 +10,8 @@
 
 	<core-card class="sso-card" id="core-card" vertical layout>
 
+	  <paper-toast id="toast" duration="5000" text="E-mail resent." swipeDisabled></paper-toast>
+	  
 	  <template bind if="{{ !sent }}">
 		
 		  <paper-shadow z="2"></paper-shadow>
@@ -24,7 +27,7 @@
 		<paper-shadow z="2"></paper-shadow>
 		<h1 id="heading">Password reset email sent</h1>
 		<p id="instruction">If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.</p>
-		<paper-button label="Resend email" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
+		<paper-button label="Resend email" on-click="{{ send_again }}" id="reset-pw-button" class="form-row"></paper-button>
 		
 	  </template>
 	  
@@ -40,6 +43,10 @@
     Polymer({
 	send: function(e,detail,sender) {
 	  this.sent = true;
+	}
+	send_again: function() {
+	  this.send();
+	  $.toast.show();
 	}
     });
 	
