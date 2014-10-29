@@ -1,0 +1,96 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <pl-forgot-pw></pl-forgot-pw>
+
+@element pl-forgot-pw
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://polymerlabs.github.io/pl-forgot-pw
+-->
+<polymer-element name="pl-forgot-pw">
+
+  <template>
+
+    <link rel="stylesheet" href="pl-forgot-pw.css" />
+
+	<core-card class="sso-card" id="core-card" vertical layout>
+
+	  <paper-toast id="toast" duration="5000" text="E-mail resent." swipeDisabled></paper-toast>
+
+	  <template bind if="{{ !sent }}">
+
+		<paper-shadow z="2"></paper-shadow>
+		<h1 id="heading">Forgot your password?</h1>
+		<p id="instruction">Enter your email address below. You will receive an email with instructions on how to reset your password.</p>
+		<paper-input label="Email" willvalidate id="email-input" layout vertical></paper-input>
+		<paper-button label="Reset password" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
+
+	  </template>
+
+	  <template bind if="{{ sent }}">
+
+		<paper-shadow z="2"></paper-shadow>
+		<h1 id="heading">Password reset email sent</h1>
+		<p id="instruction">If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.</p>
+		<paper-button label="Resend email" on-click="{{ sendAgain }}" id="reset-pw-button" class="form-row"></paper-button>
+
+	  </template>
+
+	  <a href="/#sign-in" class="small-text link form-row" center-text>Back to <strong>Sign In</strong></a>
+
+	</core-card>
+	
+  </template>
+
+  <script>
+
+    Polymer({
+      /**
+       * The `author` attribute sets an initial author
+       *
+       * @attribute author
+       * @type string
+       * @default 'Daniel Gleckler'
+       */
+      author: 'Daniel Gleckler',
+
+      ready: function() {
+        // Ready is a lifecycle callback.
+        // You can do setup work in here.
+        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
+      },
+	
+	/**
+    * The `send` method sends a password-reset email to the given email address, if it is associated with an account.
+    *
+    * @method send
+    */
+	send: function(e,detail,sender) {
+	  this.sent = true;
+	},
+
+	/**
+    * The `sendAgain` method calls `send` (max. once every 60 seconds) and shows a toast message about the 
+    *
+    * @method sendAgain
+    */
+	sendAgain: function() {
+	  this.send();
+	  this.$.toast.show();
+	}
+	
+    });
+
+  </script>
+
+</polymer-element>

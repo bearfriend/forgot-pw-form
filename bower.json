@@ -1,25 +1,25 @@
 {
-  "name": "forgot-pw-form",
+  "name": "pl-forgot-pw",
   "version": "0.0.0",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
   "authors": [
-    "Danny Gleckler <daniel.gleckler@desire2learn.com>"
+	"Danny Gleckler <daniel.gleckler@desire2learn.com>"
   ],
   "description": "A Polymer component used for Binder/Brightspace password resets.",
-  "main": "forgot-pw-form.html",
-  "license": "n/a",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "main": "pl-forgot-pw.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^0.4.2",
-    "paper-input": "Polymer/paper-input#~0.4.2",
-    "paper-button": "Polymer/paper-button#~0.4.2",
-    "paper-shadow": "Polymer/paper-shadow#~0.4.2",
-    "paper-toast": "Polymer/paper-toast#~0.4.2"
+	"paper-input": "Polymer/paper-input#~0.4.2",
+	"paper-button": "Polymer/paper-button#~0.4.2",
+	"paper-shadow": "Polymer/paper-shadow#~0.4.2",
+	"paper-toast": "Polymer/paper-toast#~0.4.2"
+	  
+  },
+  "devDependencies": {
+    "polymer-test-tools": "Polymer/polymer-test-tools#^0.4.0"
   }
 }
