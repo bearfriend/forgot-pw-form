@@ -1,9 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../pl-input/pl-input.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
-<link rel="import" href="../paper-shadow/paper-shadow.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../core-a11y-keys/core-a11y-keys.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -17,7 +17,7 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://polymerlabs.github.io/pl-forgot-pw
 -->
-<polymer-element name="pl-forgot-pw">
+<polymer-element name="pl-forgot-pw" attributes="email">
 
   <template>
 
@@ -32,9 +32,10 @@ Element providing solution to no problem in particular.
 		<paper-shadow z="2"></paper-shadow>
 		<h1 id="heading">Forgot your password?</h1>
 		<p id="instruction">Enter your email address below. You will receive an email with instructions on how to reset your password.</p>
-		<paper-input label="Email" willvalidate id="email-input" layout vertical></paper-input>
-		<paper-button label="Reset password" on-click="{{ send }}" id="reset-pw-button" class="form-row"></paper-button>
-
+		<pl-input value="{{ email }}" label="Email" id="email-input" layout vertical required="An email address is required to recover your password." error="Whoa buddy, this doesn't look like an email address."></pl-input>
+		<paper-button on-click="{{ send }}" id="reset-pw-button" class="form-row">Reset password</paper-button>
+		<core-a11y-keys target="{{ $['reset-pw-button'] }}" keys="enter space" on-keys-pressed="{{ send }}"></core-a11y-keys>
+		
 	  </template>
 
 	  <template bind if="{{ sent }}">
@@ -42,7 +43,9 @@ Element providing solution to no problem in particular.
 		<paper-shadow z="2"></paper-shadow>
 		<h1 id="heading">Password reset email sent</h1>
 		<p id="instruction">If the email you provided is associated with an account, you will receive an email shortly with instructions on how to reset your password.</p>
-		<paper-button label="Resend email" on-click="{{ sendAgain }}" id="reset-pw-button" class="form-row"></paper-button>
+		<paper-button on-click="{{ sendAgain }}" id="reset-pw-button" class="form-row">Resend email</paper-button>
+		<core-a11y-keys target="{{ $['reset-pw-button'] }}" keys="enter space" on-keys-pressed="{{ sendAgain }}"></core-a11y-keys>
+		
 
 	  </template>
 
@@ -63,6 +66,15 @@ Element providing solution to no problem in particular.
        * @default 'Daniel Gleckler'
        */
       author: 'Daniel Gleckler',
+
+	  /**
+       * Populates the email address input
+       *
+       * @attribute email
+       * @type string
+       * @default ''
+       */
+      email: '',
 
       ready: function() {
         // Ready is a lifecycle callback.
