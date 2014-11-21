@@ -12,14 +12,14 @@
   "description": "A Polymer component used for Binder/Brightspace password resets.",
   "main": "pl-forgot-pw.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.4.2",
-	"paper-input": "Polymer/paper-input#~0.4.2",
-	"paper-button": "Polymer/paper-button#~0.4.2",
-	"paper-shadow": "Polymer/paper-shadow#~0.4.2",
-	"paper-toast": "Polymer/paper-toast#~0.4.2"
+    "polymer": "Polymer/polymer#^0.5.1",
+	"paper-input": "Polymer/paper-input#~0.5.1",
+	"paper-button": "Polymer/paper-button#~0.5.1",
+	"paper-shadow": "Polymer/paper-shadow#~0.5.1",
+	"paper-toast": "Polymer/paper-toast#~0.5.1"
   },
   "devDependencies": {
-    "polymer-test-tools": "Polymer/polymer-test-tools#^0.4.0",
+    "polymer-test-tools": "Polymer/polymer-test-tools#^0.5.1",
 	"pl-config": "https://github.com/bearfriend/pl-config.git"
   }
 }
