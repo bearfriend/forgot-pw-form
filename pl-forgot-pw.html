@@ -124,10 +124,11 @@ Element providing solution to no problem in particular.
 	 
 	 requestResetSuccess: function() {
 
+	   var that = this;
 	   this.sent = true;
 	   this.canSend = false;
 	   setTimeout(function() {
-		 this.canSend = true;
+		 that.canSend = true;
 	   },60000);
 	   
 	 },
