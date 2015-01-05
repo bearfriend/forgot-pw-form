@@ -32,7 +32,9 @@ Element providing solution to no problem in particular.
 		<paper-shadow z="2"></paper-shadow>
 		<h1 id="heading">Forgot your password?</h1>
 		<p id="instruction">Enter your email address below. You will receive an email with instructions on how to reset your password.</p>
-		<pl-input value="{{ email }}" label="Email" id="email-input" layout vertical required="An email address is required to recover your password." error="Whoa buddy, this doesn't look like an email address."></pl-input>
+		<pl-input-decorator label="Email" id="email-input-decorator" required="An email address is required to recover your password." error="Whoa buddy, this doesn't look like an email address." layout vertical >
+		  <input value="{{ email }}" type="email" id="email-input" />
+		</pl-input-decorator>
 		<paper-button on-click="{{ send }}" id="reset-pw-button" class="form-row">Reset password</paper-button>
 		<core-a11y-keys target="{{ $['reset-pw-button'] }}" keys="enter space" on-keys-pressed="{{ send }}"></core-a11y-keys>
 		
@@ -88,7 +90,14 @@ Element providing solution to no problem in particular.
     * @method send
     */
 	send: function(e,detail,sender) {
-	  this.sent = true;
+
+	  var el = this.$['email-input-decorator'];
+
+	  el.startValidation();
+	  
+	  if (!el.isInvalid) {
+		this.sent = true;
+	  }
 	},
 
 	/**
