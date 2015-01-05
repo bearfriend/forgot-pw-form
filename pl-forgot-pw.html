@@ -25,6 +25,15 @@ Element providing solution to no problem in particular.
 
 	<core-card class="sso-card" id="core-card" vertical layout>
 
+	  <core-ajax id="ajax"
+				 method="POST"
+				 url="http://54.84.119.67:1337/api/users/requestPwReset" // this must be replaced somehow
+				 params='{"email": "{{email}}","token": "a" }'
+				 handleAs="json"
+				 on-core-response="{{ requestResetSuccess }}"
+				 on-core-error="{{ requestResetFailure }}"
+				 withCredentials>
+	  </core-ajax>
 	  <paper-toast id="toast" duration="5000" text="E-mail resent." swipeDisabled></paper-toast>
 
 	  <template bind if="{{ !sent }}">
@@ -58,60 +67,77 @@ Element providing solution to no problem in particular.
   </template>
 
   <script>
+   
+   Polymer({
+     /**
+      * The `author` attribute sets an initial author
+      *
+      * @attribute author
+      * @type string
+      * @default 'Daniel Gleckler'
+      */
+     author: 'Daniel Gleckler',
+	 
+	 /**
+      * Populates the email address input
+      *
+      * @attribute email
+      * @type string
+      * @default ''
+      */
+     email: '',
+	 
+	 canSend: true,
+	 
+     ready: function() {
+       // Ready is a lifecycle callback.
+       // You can do setup work in here.
+       // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
+     },
+	 
+	 /**
+      * The `send` method sends a password-reset email to the given email address, if it is associated with an account.
+      *
+      * @method send
+      */
+	 send: function(e,detail,sender) {
+	   
+	   var el = this.$['email-input-decorator'];
+	   
+	   el.startValidation();
+	   
+	   if (!el.isInvalid && this.canSend) {
+		 this.$.ajax.go();
+	   }
+	   
+	 },
+	 
+	 /**
+      * The `sendAgain` method calls `send` (max. once every 60 seconds) and shows a toast message about the 
+      *
+      * @method sendAgain
+      */
+	 sendAgain: function() {
+	   this.send();
+	   this.$.toast.show();
+	 },
+	 
+	 requestResetSuccess: function() {
 
-    Polymer({
-      /**
-       * The `author` attribute sets an initial author
-       *
-       * @attribute author
-       * @type string
-       * @default 'Daniel Gleckler'
-       */
-      author: 'Daniel Gleckler',
+	   this.sent = true;
+	   this.canSend = false;
+	   setTimeout(function() {
+		 this.canSend = true;
+	   },60000);
+	   
+	 },
 
-	  /**
-       * Populates the email address input
-       *
-       * @attribute email
-       * @type string
-       * @default ''
-       */
-      email: '',
-
-      ready: function() {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
-      },
-	
-	/**
-    * The `send` method sends a password-reset email to the given email address, if it is associated with an account.
-    *
-    * @method send
-    */
-	send: function(e,detail,sender) {
-
-	  var el = this.$['email-input-decorator'];
-
-	  el.startValidation();
-	  
-	  if (!el.isInvalid) {
-		this.sent = true;
-	  }
-	},
-
-	/**
-    * The `sendAgain` method calls `send` (max. once every 60 seconds) and shows a toast message about the 
-    *
-    * @method sendAgain
-    */
-	sendAgain: function() {
-	  this.send();
-	  this.$.toast.show();
-	}
-	
-    });
-
+	 requestResetFailure: function() {
+	   return false;
+	 }
+	 
+   });
+   
   </script>
-
+  
 </polymer-element>
